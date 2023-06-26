@@ -95,29 +95,6 @@ select {
     justify-content: center;
 }
 
-#input-flex {
-    display: flex;
-    flex-direction: column;
-    justify-content: start;
-    margin-bottom: 1rem;
-    gap: 1rem;
-    width: 10vw;
-    flex: 1;
-}
-
-#input-flex > input {
-    flex: 3;
-    text-align: center;
-    font-size: min(1.2rem, 18px);
-}
-
-#input-flex > button {
-    flex: 1;
-    text-align: center;
-    font-size: clamp(12px, 18px, 1.4rem);
-}
-
-
 #grid-container {
     width: fit-content;
     min-width: 70vw;
@@ -139,9 +116,88 @@ select {
     background: hsl(0, 32%, 85%);
     border: 0.1rem solid hsl(0, 32%, 45%);
     border-radius: 0.1rem;
-    transition: background 50ms cubic-bezier(0.075, 0.82, 0.165, 1);
+    transition: background 50ms ease-out;
 }
 
 .sketch-board:hover {
-    background: hsl(0, 42%, 65%);
+    background: hsl(0, 57%, 55%);
+}
+
+/* Menu Header */
+
+#menu-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 1rem;
+    height: 4rem;
+    opacity: 1;
+    transition: height 300ms ease-in-out,
+                opacity 300ms ease-in-out;
+}
+
+#menu-header.collapsed {
+    height: 0rem;
+    opacity: 0;
+    display: none;
+}
+
+
+/* Custom Prompt */
+
+.custom-prompt {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+
+.prompt-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  background-color: hsl(0, 32%, 88%);
+  padding: 2rem;
+  min-width: 50vw; 
+  min-height: 50vh;
+  border-radius: 0.5rem;
+  box-shadow: inset 1px 1px 80px hsl(0, 72%, 90%),
+            1px 1px 8px hsl(0, 22%, 40%);
+}
+
+.prompt-content label {
+    font-size: 2rem;
+    padding-bottom: 1rem;
+    color: hsl(0, 10%, 20%);
+}
+
+.prompt-content input {
+  min-width: 40vw;
+  min-height: 10vh;
+  border-radius: 0.5rem;
+  border: 0.1rem solid hsla(0, 72%, 40%, 0.2);
+  box-shadow: inset 1px 1px 6px hsl(0, 72%, 80%),
+            1px 1px 8px hsl(0, 22%, 40%);
+}
+
+.prompt-content button {
+  border-radius: 0.5rem;
+  padding: 1rem;
+  min-width: 8rem;
+  border: 0.1rem solid hsla(0, 72%, 40%, 0.2);
+  box-shadow: inset 1px 1px 4px hsl(0, 72%, 80%),
+            1px 1px 8px hsl(0, 22%, 40%);
+}
+
+.button-flex {
+    display: flex;
+    padding: 1rem;
+    justify-content: space-evenly;
+    min-width: 40vw;
 }

@@ -2,6 +2,8 @@
 const gridContainer = document.getElementById("grid-container");
 const inputBox = document.getElementById("input-grid-size");
 const submitInputButton = document.getElementById("btn-make-grid");
+const customPrompt = document.getElementById("custom-prompt");
+const menuHeader = document.getElementById("menu-header");
 
 // FUNCTIONS
 function sizeGrid(inputSize) {
@@ -26,15 +28,40 @@ function sizeGrid(inputSize) {
     console.log(`calculated width of GTC: ${gridContainer.style.gridTemplateColumns}`);
 }
 
-// EVENT LISTENERS   
-inputBox.addEventListener('keydown', (key) => {
-    if (key.key === "Enter") {
-        let inputSize = parseInt(inputBox.value);
-        sizeGrid(inputSize);
-    }
-});
+function showCustomPrompt() {
+    customPrompt.style.display = "flex";
+}
 
-submitInputButton.addEventListener('click', () => {
-    let inputSize = parseInt(inputBox.value);
+function hideCustomPrompt() {
+    customPrompt.style.display = "none";
+}
+
+function showBoard() {
+    gridContainer.style.display = "grid";
+}
+
+function hideBoard() {
+    gridContainer.style.display = "none";
+}
+
+function showMenu() {
+    menuHeader.style.display = "flex";
+}
+
+function hideMenu() {
+    menuHeader.style.display = "none";
+}
+
+
+function handlePromptInput() {
+    const input = document.getElementById("promptInput");
+    let inputSize = parseInt(input.value);
+
+    hideCustomPrompt();
+    showBoard();
     sizeGrid(inputSize);
-})
+    setInterval(hideMenu, 1000);
+}
+
+// EVENT LISTENERS   
+

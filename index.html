@@ -8,11 +8,20 @@
     <title>Etch-A-Sketch</title>
 </head>
 <body>
-    <div id="outer-container">
-        <div id="input-flex">
-            <input id="input-grid-size" type="text">
-            <button id="btn-make-grid">Make grid!</button>
+    <header id="menu-header">
+        <button onclick="showCustomPrompt()">Menu</button>
+    </header>
+    <div id="custom-prompt" class="custom-prompt">
+      <div class="prompt-content">
+        <label for="promptInput">Enter a grid size: ? x ?</label>
+        <input type="text" id="promptInput">
+        <div class="button-flex">
+            <button onclick="handlePromptInput()">OK</button>
+            <button onclick="hideCustomPrompt()">Cancel</button>
         </div>
+      </div>
+    </div>
+    <div id="outer-container">
        <div id="grid-container"></div> 
     </div>
 </body>
