@@ -2,7 +2,7 @@
 
 html {
   box-sizing: border-box;
-  font-size: max(1.5vw, 1.5vh);
+  font-size: 1.5vw;
 }
 
 *,
@@ -83,4 +83,25 @@ select {
 
 /* START OF PROJECT CODE */
 
+#outer-container {
+    display: flex;
+    align-items: center;
+    min-height: 100vh;
+    justify-content: center;
+}
 
+#grid-container {
+    margin: auto;
+    width: fit-content;
+    display: grid;
+    grid-template-columns: repeat(4, 10rem);
+    align-items: center;
+    justify-content: center;
+    border: 2px solid thistle;
+}
+
+.sketch-board {
+    border: 1px solid hsl(335, 60%, 40%);
+    min-width: 10rem;
+    min-height: 10rem;
+}
