@@ -136,10 +136,9 @@ select {
                 opacity 300ms ease-in-out;
 }
 
-#menu-header.collapsed {
+#menu-header.collapse {
     height: 0rem;
     opacity: 0;
-    display: none;
 }
 
 

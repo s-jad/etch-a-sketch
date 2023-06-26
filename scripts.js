@@ -49,7 +49,10 @@ function showMenu() {
 }
 
 function hideMenu() {
-    menuHeader.style.display = "none";
+    menuHeader.classList.add("collapse");
+    setInterval(() => {
+        menuHeader.style.display = "none";
+    }, 301);
 }
 
 
@@ -60,7 +63,7 @@ function handlePromptInput() {
     hideCustomPrompt();
     showBoard();
     sizeGrid(inputSize);
-    setInterval(hideMenu, 1000);
+    setInterval(hideMenu, 100);
 }
 
 // EVENT LISTENERS   
