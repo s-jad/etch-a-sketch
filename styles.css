@@ -2,7 +2,7 @@
 
 html {
   box-sizing: border-box;
-  font-size: clamp(max(1vw, 1vh));
+  font-size: max(1.5vw, 1.5vh);
 }
 
 *,
@@ -41,7 +41,7 @@ body {
   min-height: 100vh;
   text-rendering: optimizeSpeed;
   line-height: 1.5;
-  font-size: 1rem;
+  font-size: clamp(16px, 1.2rem, 1.8rem);
 }
 
 /* A elements that don't have a class get default styles */
