@@ -1,14 +1,14 @@
 /* Box sizing rules */
 
 html {
-  box-sizing: border-box;
-  font-size: 1.5vw;
+    box-sizing: border-box;
+    font-size: 1.5vw;
 }
 
 *,
 *::before,
 *::after {
-  box-sizing: inherit;
+    box-sizing: inherit;
 }
 
 /* Remove default margin */
@@ -22,38 +22,38 @@ figure,
 blockquote,
 dl,
 dd {
-  margin: 0;
+    margin: 0;
 }
 
 /* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
 ul[role='list'],
 ol[role='list'] {
-  list-style: none;
+    list-style: none;
 }
 
 /* Set core root defaults */
 html:focus-within {
-  scroll-behavior: smooth;
+    scroll-behavior: smooth;
 }
 
 /* Set core body defaults */
 body {
-  min-height: 100vh;
-  text-rendering: optimizeSpeed;
-  line-height: 1.5;
-  font-size: clamp(16px, 1.2rem, 1.8rem);
+    min-height: 100vh;
+    text-rendering: optimizeSpeed;
+    line-height: 1.5;
+    font-size: clamp(16px, 1.2rem, 1.8rem);
 }
 
 /* A elements that don't have a class get default styles */
 a:not([class]) {
-  text-decoration-skip-ink: auto;
+    text-decoration-skip-ink: auto;
 }
 
 /* Make images easier to work with */
 img,
 picture {
-  max-width: 100%;
-  display: block;
+    max-width: 100%;
+    display: block;
 }
 
 /* Inherit fonts for inputs and buttons */
@@ -61,13 +61,13 @@ input,
 button,
 textarea,
 select {
-  font: inherit;
+    font: inherit;
 }
 
 /* Remove all animations, transitions and smooth scroll for people that prefer not to see them */
 @media (prefers-reduced-motion: reduce) {
   html:focus-within {
-   scroll-behavior: auto;
+    scroll-behavior: auto;
   }
 
   *,
@@ -165,28 +165,28 @@ select {
 /* Custom menu */
 
 .custom-menu {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: hsla(0, 100%, 1%, 0.5);
-  display: none;
-  justify-content: center;
-  align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: hsla(0, 100%, 1%, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
 }
 
 .menu-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background-color: var(--bg-light);
-  padding: 2rem;
-  min-width: 50vw; 
-  min-height: 50vh;
-  border-radius: 0.5rem;
-  box-shadow: inset 1px 1px 80px var(--shadow-light),
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--bg-light);
+    padding: 2rem;
+    min-width: 50vw; 
+    min-height: 50vh;
+    border-radius: 0.5rem;
+    box-shadow: inset 1px 1px 80px var(--shadow-light),
             1px 1px 8px var(--shadow-dark);
 }
 .menu-card {
@@ -203,20 +203,20 @@ select {
 }
 
 .menu-content input {
-  min-width: 30vw;
-  min-height: 7vh;
-  border-radius: 0.5rem;
-  border: 0.1rem solid var(--font-color);
-  box-shadow: inset 1px 1px 6px var(--shadow-light),
+    min-width: 30vw;
+    min-height: 7vh;
+    border-radius: 0.5rem;
+    border: 0.1rem solid var(--font-color);
+    box-shadow: inset 1px 1px 6px var(--shadow-light),
             1px 1px 8px var(--shadow-dark);
 }
 
 .menu-content button {
-  border-radius: 0.5rem;
-  padding: 0.5rem 1rem;
-  min-width: 8rem;
-  border: 0.1rem solid var(--shadow-dark);
-  box-shadow: inset 1px 1px 6px var(--shadow-light),
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+    min-width: 8rem;
+    border: 0.1rem solid var(--shadow-dark);
+    box-shadow: inset 1px 1px 6px var(--shadow-light),
             1px 1px 8px var(--shadow-dark);
 }
 
@@ -225,4 +225,19 @@ select {
     padding: 1rem;
     justify-content: space-evenly;
     min-width: 20vw;
+}
+
+/* Information Modal */
+.controls-grid {
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+}
+
+.controls-grid > p {
+    border: 1px solid var(--shadow-dark); 
+    padding: 1rem;
+    text-align: center;
 }

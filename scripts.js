@@ -2,7 +2,8 @@
 const gridContainer = document.getElementById("grid-container");
 const inputBox = document.getElementById("input-grid-size");
 const submitInputButton = document.getElementById("btn-make-grid");
-const customMenu = document.getElementById("custom-menu");
+const startMenu = document.getElementById("start-menu");
+const infoMenu = document.getElementById("info-menu");
 const menuHeader = document.getElementById("menu-header");
 
 const root = document.documentElement;
@@ -50,11 +51,22 @@ function sizeGrid(inputSize) {
 
 // Show / Hide Functions
 function showCustomMenu() {
-    customMenu.style.display = "flex";
+    startMenu.style.display = "flex";
 }
 
 function hideCustomMenu() {
-    customMenu.style.display = "none";
+    startMenu.style.display = "none";
+}
+
+function showInfoMenu() {
+    infoMenu.style.display = "flex";
+    infoMenu.addEventListener("click", function() {
+        hideInfoMenu();
+    })
+}
+
+function hideInfoMenu() {
+    infoMenu.style.display = "none";
 }
 
 function showBoard() {

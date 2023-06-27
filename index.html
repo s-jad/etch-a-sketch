@@ -10,8 +10,9 @@
 <body>
     <header id="menu-header">
         <button onclick="showCustomMenu()">Menu</button>
+        <button onclick="showInfoMenu()">Info</button>
     </header>
-    <div id="custom-menu" class="custom-menu">
+    <div id="start-menu" class="custom-menu">
       <div class="menu-content">
         <div class="menu-card">
             <label for="menuGridSize">Enter a grid size: ? x ?</label>
@@ -26,6 +27,22 @@
             <button onclick="hideCustomMenu()">Cancel</button>
         </div>
       </div>
+    </div>
+    <div id="info-menu" class="custom-menu">
+        <div class="menu-content">
+            <div class="menu-card">
+                <h3>How to play</h3>
+                <div class="controls-grid">
+                    <p id="-mouse-controls">Left click on a square to start drawing</p>
+                    <p id="right-mouse-controls">Right click on the board to select a new
+                    random color</p>
+                    <p id="shift-key-controls">Hold down the shift key and click to erase</p>
+                    <p id="space-key-controls">Press the space key to return to the starting
+                    menu</p>
+                </div> 
+            </div>
+        </div>
+
     </div>
     <div id="outer-container">
        <div id="grid-container"></div> 
