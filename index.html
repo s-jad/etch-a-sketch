@@ -9,21 +9,21 @@
 </head>
 <body>
     <header id="menu-header">
-        <button onclick="showCustomPrompt()">Menu</button>
+        <button onclick="showCustomMenu()">Menu</button>
     </header>
-    <div id="custom-prompt" class="custom-prompt">
-      <div class="prompt-content">
-        <div class="prompt-card">
-            <label for="promptGridSize">Enter a grid size: ? x ?</label>
-            <input type="text" id="promptGridSize">
+    <div id="custom-menu" class="custom-prompt">
+      <div class="menu-content">
+        <div class="menu-card">
+            <label for="menuGridSize">Enter a grid size: ? x ?</label>
+            <input type="text" id="menuGridSize">
         </div>
-        <div class="prompt-card">
-            <label for="promptStartingColor">Choose a starting color</label>
-            <input type="color" id="promptStartingColor">
+        <div class="menu-card">
+            <label for="menuStartingColor">Choose a starting color</label>
+            <input type="color" id="menuStartingColor">
         </div>
         <div class="button-flex">
             <button onclick="handleUserPreferences()">OK</button>
-            <button onclick="hideCustomPrompt()">Cancel</button>
+            <button onclick="hideCustomMenu()">Cancel</button>
         </div>
       </div>
     </div>

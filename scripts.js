@@ -2,7 +2,7 @@
 const gridContainer = document.getElementById("grid-container");
 const inputBox = document.getElementById("input-grid-size");
 const submitInputButton = document.getElementById("btn-make-grid");
-const customPrompt = document.getElementById("custom-prompt");
+const customMenu = document.getElementById("custom-menu");
 const menuHeader = document.getElementById("menu-header");
 
 
@@ -11,9 +11,9 @@ const root = document.documentElement;
 // FUNCTIONS
 
 function handleUserPreferences() {
-    handlePromptGridSize();
-    handlePromptStartingColor();
-    hideCustomPrompt();
+    handleMenuGridSize();
+    handleMenuStartingColor();
+    hideCustomMenu();
     showBoard();
     setInterval(hideMenu, 99);
     setBoardEventListeners();
@@ -45,12 +45,12 @@ function sizeGrid(inputSize) {
 
 
 // Show / Hide Functions
-function showCustomPrompt() {
-    customPrompt.style.display = "flex";
+function showCustommenu() {
+    customMenu.style.display = "flex";
 }
 
-function hideCustomPrompt() {
-    customPrompt.style.display = "none";
+function hideCustomMenu() {
+    customMenu.style.display = "none";
 }
 
 function showBoard() {
@@ -69,16 +69,16 @@ function hideMenu() {
     menuHeader.classList.add("collapse");
 }
 
-// Prompt Handlers
-function handlePromptGridSize() {
-    const input = document.getElementById("promptGridSize");
+// menu Handlers
+function handleMenuGridSize() {
+    const input = document.getElementById("menuGridSize");
     let inputSize = parseInt(input.value);
 
     sizeGrid(inputSize);
 }
 
-function handlePromptStartingColor() {
-    const input = document.getElementById("promptStartingColor");
+function handleMenuStartingColor() {
+    const input = document.getElementById("menuStartingColor");
     if (!input.value) {
         return;
     }
