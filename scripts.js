@@ -5,7 +5,6 @@ const submitInputButton = document.getElementById("btn-make-grid");
 const customMenu = document.getElementById("custom-menu");
 const menuHeader = document.getElementById("menu-header");
 
-
 const root = document.documentElement;
 
 // FUNCTIONS
@@ -16,7 +15,8 @@ function handleUserPreferences() {
     hideCustomMenu();
     showBoard();
     setInterval(hideMenu, 99);
-    setBoardEventListeners();
+    setKeyboardEventListeners();
+    setMouseEventListeners();
 }
 
 // Calculate grid container and grid element sizes from user input
@@ -37,6 +37,7 @@ function sizeGrid(inputSize) {
         gridContainer.appendChild(child);
     }
 
+    // Style grid columns to accomodate the exact number of created children
     gridContainer.style.gridTemplateColumns = `repeat(${inputSize}, min(${80 / inputSize}vw, ${80 / inputSize}vh))`;
     gridContainer.style.gap = `min(0.4rem, ${4 / inputSize}rem)`;
     console.log(`calculated width of GTC: ${gridContainer.style.gridTemplateColumns}`);
@@ -45,7 +46,7 @@ function sizeGrid(inputSize) {
 
 
 // Show / Hide Functions
-function showCustommenu() {
+function showCustomMenu() {
     customMenu.style.display = "flex";
 }
 
@@ -94,7 +95,7 @@ function handleMenuStartingColor() {
 }
 
 // EVENT LISTENERS   
-function setBoardEventListeners() {
+function setMouseEventListeners() {
     const boardSquares = document.querySelectorAll(".sketch-board");
     const computedStyle = getComputedStyle(root);
     let leftMouseDown = false;
@@ -106,99 +107,135 @@ function setBoardEventListeners() {
             if (event.button === 0) {
                 // Left mouse button is being held down
                 leftMouseDown = true;
-                this.style.background = `${computedStyle.getPropertyValue('--starting-color')}`;
-                console.log("Left mouse button is held down");
+
+                // shiftKeyDown = true -> activates the "eraser"
+                // shiftKeyDown = false -> activates the "pencil"
+                if (shiftKeyDown) {
+                    this.style.background = `${computedStyle.getPropertyValue('--bg-squares')}`;
+                } else {
+                    this.style.background = `${computedStyle.getPropertyValue('--starting-color')}`;
+                }
             } else if (event.button === 2) {
                 // Right mouse button is being held down
                 event.preventDefault();
                 rightMouseDown = true;
-                console.log("Right mouse button is held down");
-                this.style.background = `${computedStyle.getPropertyValue('--bg-squares')}`;
             }
         });
 
         square.addEventListener("mouseover", function(event) {
-            if (!leftMouseDown && !rightMouseDown) {
-                // If neither is held down, no need to go further
-                return;
-            }
-
             if (event.button === 0 && leftMouseDown) {
                 // Left mouse button is being held down
-                this.style.background = `${computedStyle.getPropertyValue('--starting-color')}`;
+                if (shiftKeyDown) {
+                    this.style.background = `${computedStyle.getPropertyValue('--bg-squares')}`;
+                } else {
+                    this.style.background = `${computedStyle.getPropertyValue('--starting-color')}`;
+                }
                 console.log("Left mouse button is held down");
             } else if (event.button === 2 && rightMouseDown) {
                 // Right mouse button is being held down
-                event.preventDefault();
-                console.log("Right mouse button is held down");
                 this.style.background = `${computedStyle.getPropertyValue('--bg-squares')}`;
+                console.log("Right mouse button is held down");
             }
         });
 
-        square.addEventListener("mouseup", function(event) {
-            if (event.button === 0) {
-                leftMouseDown = false;
-            } else if (event.button === 2) {
-                rightMouseDown = false;
-            }
+    });
 
-        });
+    gridContainer.addEventListener("mousedown", function(event) {
+        // Check which mouse button is being held down
+        if (event.button === 0) {
+            // Left mouse button is being held down
+            leftMouseDown = true;
+        } else if (event.button === 2) {
+            // Right mouse button is being held down
+            event.preventDefault();
+            rightMouseDown = true;
+            console.log("Right mouse button is being held down")
+        }
+    });
+
+    gridContainer.addEventListener("mouseup", function(event) {
+        if (event.button === 0) {
+            leftMouseDown = false;
+            console.log("Left mouse button released");
+        } else if (event.button === 2) {
+            rightMouseDown = false;
+            console.log("Right mouse button released");
+        }
     });
 }
+
+let shiftKeyDown = false;
 
 function setKeyboardEventListeners() {
     // Detect shift key being held down
     document.addEventListener("keydown", function(event) {
-        if (event.shiftKey) {
+        if (event.key = "Shift") {
             // Shift key is being held down
+            shiftKeyDown = true;
             console.log("Shift key is held down");
         }
     });
 
     // Detect shift key being released
     document.addEventListener("keyup", function(event) {
-        if (event.key === "Shift") {
+        if (event.key = "Shift") {
             // Shift key is released
+            shiftKeyDown = false;
             console.log("Shift key is released");
         }
     });
 }
 
+// Prevent the default context menu from appearing within the grid
 gridContainer.addEventListener("contextmenu", function(event) {
-    // Prevent the default context menu from appearing within the grid
     event.preventDefault();
 });
 
 // Utility Functions
-
 function hexToHSL(hex) {
+    // Extract the red, green, and blue values from the hex color code 
+    // using a regular expression and store them in the 'result' array
     const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
 
+    // Convert the hexadecimal values to decimal values 
+    // Store them in separate variables
     let r = parseInt(result[1], 16);
     let g = parseInt(result[2], 16);
     let b = parseInt(result[3], 16);
 
+    // Normalize RGB values by dividing them by 255
     r /= 255, g /= 255, b /= 255;
+
+    // Calculate the maximum and minimum values of the RGB components
+    // Calculate the lightness (l) as the average of the max and min
     let max = Math.max(r, g, b), min = Math.min(r, g, b);
     let h, s, l = (max + min) / 2;
 
     if (max == min) {
         h = s = 0; // achromatic
     } else {
+        // Calculate the saturation (s) 
+        // Based on the difference between max and min, and the lightness value
         let d = max - min;
         s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+
+        // Calculate the hue (h) 
+        // Based on the value of max and the differences between the RGB components
         switch (max) {
             case r: h = (g - b) / d + (g < b ? 6 : 0); break;
             case g: h = (b - r) / d + 2; break;
             case b: h = (r - g) / d + 4; break;
         }
 
+        // Normalize the hue value to be between 0 and 1
         h /= 6;
     }
 
+    // Convert: hue value to degrees, saturation and lightness values to percentages
     h = Math.round(h * 360);
     s = Math.round(s * 100);
     l = Math.round(l * 100);
 
     return { h, s, l };
 }
+
