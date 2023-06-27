@@ -10,13 +10,16 @@ const root = document.documentElement;
 // FUNCTIONS
 
 function handleUserPreferences() {
+    // Setup board
     handleMenuGridSize();
     handleMenuStartingColor();
+    setKeyboardEventListeners();
+    setMouseEventListeners();
+
+    // Transition to board
     hideCustomMenu();
     showBoard();
     setInterval(hideMenu, 99);
-    setKeyboardEventListeners();
-    setMouseEventListeners();
 }
 
 // Calculate grid container and grid element sizes from user input
@@ -105,6 +108,9 @@ function setMouseEventListeners() {
         square.addEventListener("mousedown", function(event) {
             // Check which mouse button is being held down
             if (event.button === 0) {
+                // Prevent element dragging behaviour
+                event.preventDefault();
+
                 // Left mouse button is being held down
                 leftMouseDown = true;
 
