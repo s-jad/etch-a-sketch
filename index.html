@@ -13,10 +13,16 @@
     </header>
     <div id="custom-prompt" class="custom-prompt">
       <div class="prompt-content">
-        <label for="promptInput">Enter a grid size: ? x ?</label>
-        <input type="text" id="promptInput">
+        <div class="prompt-card">
+            <label for="promptGridSize">Enter a grid size: ? x ?</label>
+            <input type="text" id="promptGridSize">
+        </div>
+        <div class="prompt-card">
+            <label for="promptStartingColor">Choose a starting color</label>
+            <input type="color" id="promptStartingColor">
+        </div>
         <div class="button-flex">
-            <button onclick="handlePromptInput()">OK</button>
+            <button onclick="handleUserPreferences()">OK</button>
             <button onclick="hideCustomPrompt()">Cancel</button>
         </div>
       </div>
