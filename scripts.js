@@ -100,10 +100,13 @@ function handleMenuStartingColor() {
     }
 
     const { h, s, l } = hexToHSL(input.value)
+    setRootColors(h, s, l);
+}
 
-    root.style.setProperty('--starting-color', `hsl(${h}, ${s}%, ${l}%)`);
+function setRootColors(h, s, l) {
+    root.style.setProperty('--starting-color', `hsl(${h}, ${s}%, ${l + 20 >= 80 ? 80 : l + 20}%)`);
     root.style.setProperty('--bg-light', `hsl(${h}, ${s / 4}%, ${l + 30 >= 90 ? 90 : l + 30}%)`);
-    root.style.setProperty('--bg-squares', `hsl(${h}, ${s * 1.3}%, ${l - 15}%)`);
+    root.style.setProperty('--bg-squares', `hsl(${h}, ${s * 1.3}%, ${l - 40 < 0 ? 0 : l - 40}%)`);
     root.style.setProperty('--shadow-light', `hsl(${h}, ${s / 4}%, ${l + 20 >= 90 ? 90 : l + 20}%)`);
     root.style.setProperty('--shadow-dark', `hsl(${h}, ${s * 1.5 >= 85 ? 85 : l * 1.5}%, 5%)`);
     root.style.setProperty('--font-color', `hsl(${h}, ${s * 1.6 >= 95 ? 95 : l * 1.6}%, 3%)`);
@@ -187,7 +190,7 @@ let shiftKeyDown = false;
 function setKeyboardEventListeners() {
     // Detect shift key being held down
     document.addEventListener("keydown", function(event) {
-        if (event.key = "Shift") {
+        if (event.code === "ShiftLeft") {
             // Shift key is being held down
             shiftKeyDown = true;
             console.log("Shift key is held down");
@@ -196,12 +199,38 @@ function setKeyboardEventListeners() {
 
     // Detect shift key being released
     document.addEventListener("keyup", function(event) {
-        if (event.key = "Shift") {
+        if (event.code === "ShiftLeft") {
             // Shift key is released
             shiftKeyDown = false;
             console.log("Shift key is released");
         }
     });
+
+    document.addEventListener("keydown", function(event) {
+        if (event.code == "KeyI") {
+            setRandomHslValue();
+        }
+    });
+
+    const menuOpen = false;
+
+    document.addEventListener("keydown", function(event) {
+        if (event.code === "Space" && !menuOpen) {
+            menuOpen = true;
+            showCustomMenu();
+        } else if (event.code === "Space" && menuOpen) {
+            menuOpen = false;
+            hideCustomMenu();
+        }
+    });
+}
+
+function setRandomHslValue() {
+    const h = Math.floor(Math.random() * 360) + 1;
+    const s = Math.floor(Math.random() * 100) + 1;
+    const l = Math.floor(Math.random() * 100) + 1;
+    console.log(`HSL: ${h}, ${s}%, ${l}%`);
+    setRootColors(h, s, l);
 }
 
 // Prevent the default context menu from appearing within the grid
