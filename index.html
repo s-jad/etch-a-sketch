@@ -8,10 +8,37 @@
     <title>Etch-A-Sketch</title>
 </head>
 <body>
+    <script>
+        const root = document.documentElement;
+        function setFirstPenColor({ h, s, l }) {
+            root.style.setProperty('--starting-color', `hsl(${h}, ${s}%, ${l + 20 >= 80 ? 80 : l + 20}%)`);
+        }
+
+        function setFirstRootColors({ h, s, l }) {
+            root.style.setProperty('--bg-light', `hsl(${h}, ${s / 4}%, ${l + 30 >= 90 ? 90 : l + 30}%)`);
+            root.style.setProperty('--bg-squares', `hsl(${h}, ${s * 1.3}%, ${l - 40 < 0 ? 0 : l - 40}%)`);
+            root.style.setProperty('--shadow-light', `hsl(${h}, ${s / 4}%, ${l + 20 >= 90 ? 90 : l + 20}%)`);
+            root.style.setProperty('--shadow-dark', `hsl(${h}, ${s * 1.5 >= 85 ? 85 : l * 1.5}%, 5%)`);
+            root.style.setProperty('--font-color', `hsl(${h}, ${s * 1.6 >= 95 ? 95 : l * 1.6}%, 3%)`);
+        }
+        function setFirstRandomHslValue() {
+            const h = Math.floor(Math.random() * 360) + 1;
+            const s = Math.floor(Math.random() * 100) + 1;
+            const l = Math.floor(Math.random() * 100) + 1;
+            console.log(`HSL: ${h}, ${s}%, ${l}%`);
+            return { h, s, l };
+        }
+
+        setFirstPenColor(setFirstRandomHslValue())
+        setFirstRootColors(setFirstRandomHslValue());    
+
+    </script>
+
     <header id="menu-header">
         <button onclick="showCustomMenu()">Menu</button>
         <button onclick="showInfoMenu()">Info</button>
     </header>
+
     <div id="start-menu" class="custom-menu">
       <div id="start-content" class="menu-content">
         <div class="menu-card">
@@ -28,24 +55,27 @@
         </div>
       </div>
     </div>
+
     <div id="info-menu" class="custom-menu">
         <div id="info-content" class="menu-content">
             <div class="menu-card">
                 <h3>How to play</h3>
                 <div class="controls-grid">
-                    <p id="-mouse-controls">Left click on a square to start drawing</p>
-                    <p id="right-mouse-controls">Right click on the board to select a new
-                    random color</p>
-                    <p id="shift-key-controls">Hold down the shift key and click to erase</p>
-                    <p id="space-key-controls">Press the space key to return to the starting
+                    <p id="-mouse-controls"><span class="hl">Left click</span> on a square to start drawing</p>
+                    <p id="shift-key-controls">Hold down the <span class="hl">shift key and click</span> to erase</p>
+                    <p id="space-key-controls">Press the <span class="hl">space </span>key to return to the starting
                     menu</p>
+                    <p id="b-key-controls">Press <span class="hl">b</span> to change background color</p>
+                    <p id="p-key-controls">Press <span class="hl">p</span> to change pen color</p>
                 </div> 
             </div>
         </div>
 
     </div>
+
     <div id="outer-container">
        <div id="grid-container"></div> 
     </div>
+
 </body>
 </html>
