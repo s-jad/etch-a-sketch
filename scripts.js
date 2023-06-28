@@ -6,7 +6,7 @@ const startMenu = document.getElementById("start-menu");
 const infoMenu = document.getElementById("info-menu");
 const menuHeader = document.getElementById("menu-header");
 
-const root = document.documentElement;
+// const root declared in index.html startup script
 
 // FUNCTIONS
 
@@ -49,7 +49,8 @@ function sizeGrid(inputSize) {
 }
 
 
-// Show / Hide Functions
+// DISPLAY FUNCTIONS
+
 function showCustomMenu() {
     startMenu.style.display = "flex";
 }
@@ -85,7 +86,8 @@ function hideMenu() {
     menuHeader.classList.add("collapse");
 }
 
-// menu Handlers
+// MENU HANDLERS
+
 function handleMenuGridSize() {
     const input = document.getElementById("menuGridSize");
     let inputSize = parseInt(input.value);
@@ -95,24 +97,37 @@ function handleMenuGridSize() {
 
 function handleMenuStartingColor() {
     const input = document.getElementById("menuStartingColor");
+    // If no input value, dont try hexToHSL
     if (!input.value) {
         return;
     }
 
     const { h, s, l } = hexToHSL(input.value)
-    setRootColors(h, s, l);
+    setPenColor({ h, s, l });
+    setRootColors({ h, s, l });
 }
 
-function setRootColors(h, s, l) {
+// COLOR SETTERS
+
+function setPenColor({ h, s, l }) {
     root.style.setProperty('--starting-color', `hsl(${h}, ${s}%, ${l + 20 >= 80 ? 80 : l + 20}%)`);
+}
+function setRootColors({ h, s, l }) {
     root.style.setProperty('--bg-light', `hsl(${h}, ${s / 4}%, ${l + 30 >= 90 ? 90 : l + 30}%)`);
     root.style.setProperty('--bg-squares', `hsl(${h}, ${s * 1.3}%, ${l - 40 < 0 ? 0 : l - 40}%)`);
     root.style.setProperty('--shadow-light', `hsl(${h}, ${s / 4}%, ${l + 20 >= 90 ? 90 : l + 20}%)`);
-    root.style.setProperty('--shadow-dark', `hsl(${h}, ${s * 1.5 >= 85 ? 85 : l * 1.5}%, 5%)`);
-    root.style.setProperty('--font-color', `hsl(${h}, ${s * 1.6 >= 95 ? 95 : l * 1.6}%, 3%)`);
+    root.style.setProperty('--shadow-medium', `hsl(${h}, ${s * 1.2}%, 15%)`)
+    root.style.setProperty('--shadow-dark', `hsl(${h}, ${s * 1.5 >= 85 ? 85 : s * 1.5}%, 5%)`);
+    root.style.setProperty('--font-color', `hsl(${h}, ${s * 1.6 >= 95 ? 95 : s * 1.6}%, 3%)`);
+
+
+    document.body.style.background = `hsl(${h}, 
+                                          ${s - 20 < 0 ? 0 : s - 20}%, 
+                                          ${l + 10 > 90 ? 90 : l + 10}%)`;
 }
 
 // EVENT LISTENERS   
+
 function setMouseEventListeners() {
     const boardSquares = document.querySelectorAll(".sketch-board");
     const computedStyle = getComputedStyle(root);
@@ -207,13 +222,21 @@ function setKeyboardEventListeners() {
     });
 
     document.addEventListener("keydown", function(event) {
-        if (event.code == "KeyI") {
-            setRandomHslValue();
+        if (event.code == "KeyP") {
+            const hsl = setRandomHslValue();
+            setPenColor(hsl);
         }
     });
 
-    const menuOpen = false;
+    document.addEventListener("keydown", function(event) {
+        if (event.code == "KeyB") {
+            const hsl = setRandomHslValue();
+            setRootColors(hsl);
+        }
+    });
 
+    let menuOpen = false;
+    let infoOpen = false;
     document.addEventListener("keydown", function(event) {
         if (event.code === "Space" && !menuOpen) {
             menuOpen = true;
@@ -223,22 +246,26 @@ function setKeyboardEventListeners() {
             hideCustomMenu();
         }
     });
+
+    document.addEventListener("keydown", function(event) {
+        if (event.code === "KeyI" && !infoOpen) {
+            infoOpen = true;
+            showInfoMenu();
+        } else if (event.code === "KeyI" && infoOpen) {
+            infoOpen = false;
+            hideInfoMenu();
+        }
+    })
 }
 
-function setRandomHslValue() {
-    const h = Math.floor(Math.random() * 360) + 1;
-    const s = Math.floor(Math.random() * 100) + 1;
-    const l = Math.floor(Math.random() * 100) + 1;
-    console.log(`HSL: ${h}, ${s}%, ${l}%`);
-    setRootColors(h, s, l);
-}
 
 // Prevent the default context menu from appearing within the grid
 gridContainer.addEventListener("contextmenu", function(event) {
     event.preventDefault();
 });
 
-// Utility Functions
+// UTILITY FUNCTIONS
+
 function hexToHSL(hex) {
     // Extract the red, green, and blue values from the hex color code 
     // using a regular expression and store them in the 'result' array
@@ -286,3 +313,10 @@ function hexToHSL(hex) {
     return { h, s, l };
 }
 
+function setRandomHslValue() {
+    const h = Math.floor(Math.random() * 360) + 1;
+    const s = Math.floor(Math.random() * 100) + 1;
+    const l = Math.floor(Math.random() * 100) + 1;
+    console.log(`HSL: ${h}, ${s}%, ${l}%`);
+    return { h, s, l };
+}
